@@ -76,12 +76,14 @@ class Graph:
                 for next_vertex in self.vertices[v]:
                     s.push(next_vertex)
 
-    def dft_recursive(self, vertex, visited=set()):
+    def dft_recursive(self, vertex, visited=None):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
         This should be done using recursion.
         """
+        if not visited:
+            visited = set()
         # if visited
         if vertex in visited:
             # return
@@ -134,12 +136,16 @@ class Graph:
                 # add searched_vertex to queue
                 q.enqueue(searched_vertex)
 
-    def dfs(self, vertex, destination_vertex, visited=set(), path=[]):
+    def dfs(self, vertex, destination_vertex, visited=None, path=None):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
         depth-first order.
         """
+        if not visited:
+            visited = set()
+        if not path:
+            path = []
         # add to path
         path.append(vertex)
         # if destination or visited

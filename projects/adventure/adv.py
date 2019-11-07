@@ -51,35 +51,23 @@ def tryTracingBack(): # it's just a bfs
     visited = set()
     paths = {}
     q = Queue()
-    # add starting_vertex to queue
     q.enqueue(currentRoom)
-    # add starting_vertex to dict
     paths[currentRoom] = [currentRoom]
-    # while true
     while q.size() > 0:
-        # dequeue value from queue and set it as vertex
         room = q.dequeue()
-        # set vertex as visited
         visited.add(room)
-        # for searched_vertex in vertex
         for searchedRoom in roomGraph[room][1].values():
-            # if searched_vertex visited
             if searchedRoom in visited:
-                # continue
                 continue
-            # get vertex list from the dict and add searched_vertex to it's copy
             newPath = paths[room][:]
             newPath.append(searchedRoom)
-            # add it to dict with searched_vertex as the key
             paths[searchedRoom] = newPath
-            # if searched_vertex is destination_vertex return path
             if not allRoomsAroundSeen(searchedRoom):
                 correctPath = paths[searchedRoom]
                 directions = []
                 for i in range(len(correctPath) - 1):
                     directions.append(directionToRoom(correctPath[i], correctPath[i + 1]))
                 return (directions, correctPath[len(correctPath) - 1])
-            # add searched_vertex to queue
             q.enqueue(searchedRoom)
     return None
 
